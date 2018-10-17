@@ -1,0 +1,25 @@
+ConfigDir:                                                      # 本地配置文件加载路径的配置项
+  Path: ./AppConfig/                                            # 本地配置文件的加载路径
+  main: App.yml                                                 # 本地配置文件加载的入口文件
+ConfigService:                                                  # 远程配置文件加载的配置项
+  host: 'http://127.0.0.1:7001'                                 # Config Server的host
+  # user: admin                                                   # 用户名
+  # pass: adminadmin                                              # 密码
+SchemaDirs:                                                     # Schema的加载路径配置项（目前无效）
+  - './Schema'                                                  # 默认加载路径（目前无效）
+  - './node_modules/c4schema'                                   # 也可从模块中加载（目前无效）
+Macros:                                                         # 启用宏的配置项
+  - '{AppName}'                                                 # 启用的宏
+  - '{Version}'
+  - '{InstanceID}'
+  - '{host}'
+  - '{port}'
+  - '{Random.Hash}'
+  - '{Random.Int}'
+  - '{Random}'
+  - '{Random.HashEx}'
+  - '{Random.IntEx}'
+  - '{RandomEx}'
+  - '{timestamp}'
+  - '{timestampEx}'
+  - '{uuid}'

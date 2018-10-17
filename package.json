@@ -1,0 +1,35 @@
+{
+  "name": "c4configger",
+  "version": "0.0.1",
+  "description": "C4Framework Configger",
+  "main": "out",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sextants/C4Configger.git"
+  },
+  "keywords": [
+    "C4Framework",
+    "Configger"
+  ],
+  "author": "Sextant",
+  "bugs": {
+    "url": "https://github.com/Sextants/C4Configger.git"
+  },
+  "dependencies": {
+    "@types/ajv": "^1.0.0",
+    "@types/js-yaml": "^3.10.1",
+    "@types/node": "^9.4.6",
+    "@types/strip-json-comments": "0.0.30",
+    "c4ajv": "0.0.1",
+    "c4restfulclient": "0.0.1",
+    "c4utils": "0.0.2",
+    "cloud-config-client": "^1.1.0",
+    "js-yaml": "^3.10.0",
+    "moment": "^2.22.2",
+    "strip-json-comments": "^2.0.1",
+    "uuid": "^3.3.2"
+  }
+}

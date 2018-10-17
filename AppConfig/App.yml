@@ -1,0 +1,5 @@
+Application:
+  name: configger-demo
+  version: 0.0.1
+  id: SHA1
+  desc: 测试程序
