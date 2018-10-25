@@ -48,7 +48,7 @@ const EventEmitter = require("events");
 const C4LocalLoader_1 = require("./C4LocalLoader");
 const C4RemoteLoader_1 = require("./C4RemoteLoader");
 const MacrosProcess_1 = require("./MacrosProcess/MacrosProcess");
-const C4ConfigInfo_1 = require("./ConfigTypes/C4ConfigInfo");
+const C4ConfiggerOptions_1 = require("./ConfigTypes/C4ConfiggerOptions");
 const c4utils_1 = require("c4utils");
 const Path = require("path");
 const Yaml = require("js-yaml");
@@ -100,13 +100,15 @@ class C4Configger extends EventEmitter {
                 // 加载Configger配置
                 let ConfigInfo = yield this.m_LocalLoader.load(process.cwd(), C4Configger.s_DefaultConfigPath, this.m_ConfigInfo);
                 // 检查Configger配置
-                let ConfigInfoChecker = this.m_AJV.getSchema(ConfiggerSchema);
-                if (null === ConfigInfoChecker) {
-                    throw new Error('C4Configger init, can not find ConfigInfo schema.');
-                }
-                let ConfigInfoIsValid = ConfigInfoChecker(ConfigInfo);
-                if (!ConfigInfoIsValid) {
-                    throw new Error('C4Configger init, load a invalid config info.');
+                if (this.m_AJV) {
+                    let ConfigInfoChecker = this.m_AJV.getSchema(ConfiggerSchema);
+                    if (null === ConfigInfoChecker) {
+                        throw new Error('C4Configger init, can not find ConfigInfo schema.');
+                    }
+                    let ConfigInfoIsValid = ConfigInfoChecker(ConfigInfo);
+                    if (!ConfigInfoIsValid) {
+                        throw new Error('C4Configger init, load a invalid config info.');
+                    }
                 }
                 // 设置加载目录
                 this.m_ConfigInfo.ConfigDir = ConfigInfo.ConfigDir;
@@ -237,12 +239,12 @@ class C4Configger extends EventEmitter {
                     return;
                 }
                 CurSavePath = CurSavePath + '.' + type;
-                if (type === C4ConfigInfo_1.C4ConfigFileType.Yml
-                    || type === C4ConfigInfo_1.C4ConfigFileType.Yaml) {
+                if (type === C4ConfiggerOptions_1.C4ConfigFileType.Yml
+                    || type === C4ConfiggerOptions_1.C4ConfigFileType.Yaml) {
                     // 写yml
                     yield c4utils_1.FSP.WriteFile(CurSavePath, Yaml.safeDump(C4Configger.g_Config));
                 }
-                else if (type == C4ConfigInfo_1.C4ConfigFileType.JSON) {
+                else if (type == C4ConfiggerOptions_1.C4ConfigFileType.JSON) {
                     CurSavePath = CurSavePath + '.' + type;
                     yield c4utils_1.FSP.WriteFile(CurSavePath, JSON.stringify(C4Configger.g_Config, null, 4));
                 }

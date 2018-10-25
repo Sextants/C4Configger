@@ -1,7 +1,7 @@
 import Yaml         = require('js-yaml');
 import { FSP, PathUtils }       from 'c4utils';
 import C4ConfigLoaderInterface  from './C4ConfigLoaderInterface';
-import { C4ConfigInfo }         from '../ConfigTypes/C4ConfigInfo';
+import { C4ConfiggerOptions }         from '../ConfigTypes/C4ConfiggerOptions';
 
 export default class C4YamlLoader extends C4ConfigLoaderInterface {
     //
@@ -10,7 +10,7 @@ export default class C4YamlLoader extends C4ConfigLoaderInterface {
         //
     }
 
-    async load(rootDir : string, loadString : string, configInfo : C4ConfigInfo) {
+    async load(rootDir : string, loadString : string, configInfo : C4ConfiggerOptions) {
         // 获取当前工作目录
         // 限制所有的读取都在该当前目录下进行
         rootDir = await PathUtils.GetAbsolutePath(rootDir);

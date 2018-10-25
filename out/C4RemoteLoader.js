@@ -62,7 +62,7 @@ class C4RemoteLoader extends C4BaseLoader_1.default {
                 throw new Error('C4RemoteLoader unknown Profiles, ' + JSON.stringify(configInfo.Profiles));
             }
             let curRequestOption = {};
-            curRequestOption.timeout = 10000;
+            curRequestOption.timeout = configInfo.ConfigService.timeout || 60000;
             if (configInfo.ConfigService.user) {
                 curRequestOption.auth = {
                     'username': configInfo.ConfigService.user,

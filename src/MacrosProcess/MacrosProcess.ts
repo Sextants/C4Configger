@@ -1,4 +1,4 @@
-import { C4ConfigInfo }         from '../ConfigTypes/C4ConfigInfo';
+import { C4ConfiggerOptions }         from '../ConfigTypes/C4ConfiggerOptions';
 import Crypto   = require('crypto');
 import Moment   = require('moment');
 import uuidv4   = require('uuid/v4');
@@ -8,7 +8,7 @@ export default {
         Marco   : () => {
             return new RegExp('{AppName}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{AppName}/g, configInfo.AppName);
         }
     },
@@ -16,7 +16,7 @@ export default {
         Marco : () => {
             return new RegExp('{Version}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{Version}/g, configInfo.Version);
         }
     },
@@ -24,7 +24,7 @@ export default {
         Marco : () => {
             return new RegExp('{InstanceID}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{InstanceID}/g, configInfo.InstanceID)
         }
     },
@@ -32,7 +32,7 @@ export default {
         Marco : () => {
             return new RegExp('{host}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{host}/g, configInfo.host);
         }
     },
@@ -40,7 +40,7 @@ export default {
         Marco : () => {
             return new RegExp('{port}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{port}/g, configInfo.port + '');
         }
     },
@@ -49,7 +49,7 @@ export default {
         Marco : () => {
             return new RegExp('{Random.Hash}', 'g')
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{Random.Hash}/g, (key) => {
                 let CurHash = Crypto.createHash('sha1');
                 CurHash.update(Math.random() + '');
@@ -63,7 +63,7 @@ export default {
         Marco : () => {
             return new RegExp('{Random.Int}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{Random.Int}/g, (key) => {
                 let CurInt = parseInt((Math.random() * 4294967295) + '');
                 return CurInt + '';
@@ -75,7 +75,7 @@ export default {
         Marco : () => {
             return new RegExp('{Random}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{Random}/g, (key) => {
                 let CurNum = Math.random();
                 return CurNum + '';
@@ -87,7 +87,7 @@ export default {
         Marco : () => {
             return new RegExp('{Random.HashEx}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             let CurHash = Crypto.createHash('md5');
             CurHash.update(Math.random() + '');
             let Hash = CurHash.digest('hex');
@@ -99,7 +99,7 @@ export default {
         Marco : () => {
             return new RegExp('{Random.IntEx}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             let CurInt = parseInt((Math.random() * 4294967295 - 2147483648) + '')  + '';
             return value.replace(/{Random.IntEx}/g, CurInt);
         }
@@ -109,7 +109,7 @@ export default {
         Marco : () => {
             return new RegExp('{RandomEx}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             let CurNum = Math.random() * 2 - 1 + '';
             return value.replace(/{RandomEx}/g, CurNum);
         }
@@ -119,7 +119,7 @@ export default {
         Marco : () => {
             return new RegExp('{timestamp}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             return value.replace(/{timestamp}/g, (key) => {
                 let CurTime = (new Date()).getTime();
                 return CurTime + '';
@@ -131,7 +131,7 @@ export default {
         Marco : () => {
             return new RegExp('{timestampEx}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             let CurTime = Moment().toISOString();
             return value.replace(/{timestampEx}/g, CurTime);
         }
@@ -141,7 +141,7 @@ export default {
         Marco : () => {
             return new RegExp('{uuid}', 'g');
         },
-        Process : function(value : string, configInfo : C4ConfigInfo) {
+        Process : function(value : string, configInfo : C4ConfiggerOptions) {
             let CurValue = uuidv4();
             return value.replace(/{uuid}/g, CurValue);
         }

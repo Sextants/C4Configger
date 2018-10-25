@@ -1,5 +1,5 @@
 import { C4RESTFulClient, ClientOption, RequestOption } from 'c4restfulclient'
-import { C4ConfigInfo, C4ConfigDir, C4ConfigService, Macro }            from './ConfigTypes/C4ConfigInfo';
+import { C4ConfiggerOptions, C4ConfigDir, C4ConfigService, Macro }            from './ConfigTypes/C4ConfiggerOptions';
 import { TypeUtils } from 'c4utils';
 import C4BaseLoader from './C4BaseLoader';
 import C4AJV from 'c4ajv';
@@ -32,7 +32,7 @@ export default class C4RemoteLoader extends C4BaseLoader {
      * 加载配置
      * @param configInfo C4ConfigInfo
      */
-    async load(configInfo : C4ConfigInfo) {
+    async load(configInfo : C4ConfiggerOptions) {
         if (null === this.m_Client) {
             throw new Error('C4RemoteLoader not init.');
         }
@@ -55,7 +55,7 @@ export default class C4RemoteLoader extends C4BaseLoader {
         }
 
         let curRequestOption : RequestOption = {};
-        (<any>curRequestOption).timeout = 10000;
+        (<any>curRequestOption).timeout = (<C4ConfigService>configInfo.ConfigService).timeout || 60000;
         if ((<C4ConfigService>configInfo.ConfigService).user) {
             (<any>curRequestOption).auth = {
                 'username' : (<C4ConfigService>configInfo.ConfigService).user,
@@ -142,7 +142,7 @@ export default class C4RemoteLoader extends C4BaseLoader {
      * @param config 返回的配置项
      * @param configInfo C4ConfigInfo
      */
-    _parse(config : any, configInfo : C4ConfigInfo) {
+    _parse(config : any, configInfo : C4ConfiggerOptions) {
         if (TypeUtils.isNullOrUndefined(config)
             || TypeUtils.isEmptyObj(config)) {
             return null;

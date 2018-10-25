@@ -1,4 +1,4 @@
-import { C4ConfigInfo }         from './ConfigTypes/C4ConfigInfo';
+import { C4ConfiggerOptions }         from './ConfigTypes/C4ConfiggerOptions';
 import { TypeUtils, PathUtils } from 'c4utils';
 
 export default class C4BaseLoader {
@@ -11,7 +11,7 @@ export default class C4BaseLoader {
      * @param value 当前值
      * @param configInfo C4ConfigInfo
      */
-    async _processMacro(value : string, configInfo : C4ConfigInfo) {
+    async _processMacro(value : string, configInfo : C4ConfiggerOptions) {
         if (!TypeUtils.isString(value)
             || TypeUtils.isEmptyStr(value)) {
             return value;

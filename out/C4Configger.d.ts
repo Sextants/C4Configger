@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import EventEmitter = require('events');
 import C4AJV from 'c4ajv';
-import { C4ConfigFileType } from './ConfigTypes/C4ConfigInfo';
+import { C4ConfigFileType } from './ConfigTypes/C4ConfiggerOptions';
 export default class C4Configger extends EventEmitter {
     private m_LocalLoader;
     private m_RemoteLoader;

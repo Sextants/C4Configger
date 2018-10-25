@@ -1,5 +1,5 @@
 import C4ConfigLoaderInterface   from './LoaderInstance/C4ConfigLoaderInterface';
-import { C4ConfigInfo }          from './ConfigTypes/C4ConfigInfo';
+import { C4ConfiggerOptions }          from './ConfigTypes/C4ConfiggerOptions';
 import { TypeUtils, PathUtils } from 'c4utils';
 import Path         = require('path');
 import C4BaseLoader from './C4BaseLoader';
@@ -22,7 +22,7 @@ export default class C4LocalLoader extends C4BaseLoader {
      * @param loadString 加载文件
      * @param configInfo C4ConfigInfo
      */
-    async load(rootDir : string, loadString : string, configInfo : C4ConfigInfo) {
+    async load(rootDir : string, loadString : string, configInfo : C4ConfiggerOptions) {
         // 获取当前工作目录
         // 限制所有的读取都在该当前目录下进行
         rootDir = await PathUtils.GetAbsolutePath(rootDir);
@@ -44,7 +44,7 @@ export default class C4LocalLoader extends C4BaseLoader {
      * @param loadString 加载文件
      * @param configInfo C4ConfigInfo
      */
-    async _load(rootDir : string, loadString : string, configInfo : C4ConfigInfo) {
+    async _load(rootDir : string, loadString : string, configInfo : C4ConfiggerOptions) {
         let doc     = null;
         let Self    = this;
         try {

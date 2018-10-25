@@ -3,6 +3,7 @@ ConfigDir:                                                      # 本地配置�
   main: App.yml                                                 # 本地配置文件加载的入口文件
 ConfigService:                                                  # 远程配置文件加载的配置项
   host: 'http://127.0.0.1:7001'                                 # Config Server的host
+  tiemout: 10000
   # user: admin                                                   # 用户名
   # pass: adminadmin                                              # 密码
 SchemaDirs:                                                     # Schema的加载路径配置项（目前无效）

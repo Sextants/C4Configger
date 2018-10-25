@@ -45,7 +45,7 @@ import C4LocalLoader    from './C4LocalLoader';
 import C4RemoteLoader   from './C4RemoteLoader';
 import C4AJV            from 'c4ajv';
 import Macros           from './MacrosProcess/MacrosProcess';
-import { C4ConfigDir, C4ConfigService, Macro, C4ConfigInfo, C4ConfigFileType } from './ConfigTypes/C4ConfigInfo';
+import { C4ConfigDir, C4ConfigService, Macro, C4ConfiggerOptions, C4ConfigFileType } from './ConfigTypes/C4ConfiggerOptions';
 import { TypeUtils, PathUtils, FSP } from 'c4utils';
 import Path = require('path');
 import Yaml = require('js-yaml');
@@ -58,7 +58,7 @@ export default class C4Configger extends EventEmitter {
     private m_LocalLoader   : C4LocalLoader | null;
     private m_RemoteLoader  : C4RemoteLoader| null;
     private m_AJV           : C4AJV | null;
-    private m_ConfigInfo    : C4ConfigInfo;
+    private m_ConfigInfo    : C4ConfiggerOptions;
 
     // private m_Loaders : {[key: string] : object};
     // private m_Checker : object | null;
@@ -121,31 +121,34 @@ export default class C4Configger extends EventEmitter {
             // 加载Configger配置
             let ConfigInfo : any = await this.m_LocalLoader.load(process.cwd(),
                 C4Configger.s_DefaultConfigPath,
-                <C4ConfigInfo>this.m_ConfigInfo);
+                <C4ConfiggerOptions>this.m_ConfigInfo);
             // 检查Configger配置
-            let ConfigInfoChecker = (<C4AJV>this.m_AJV).getSchema(ConfiggerSchema);
-            if (null === ConfigInfoChecker) {
-                throw new Error('C4Configger init, can not find ConfigInfo schema.');
-            }
-            let ConfigInfoIsValid = ConfigInfoChecker(ConfigInfo);
-            if (!ConfigInfoIsValid) {
-                throw new Error('C4Configger init, load a invalid config info.');
+            if (this.m_AJV) {
+              let ConfigInfoChecker = (<C4AJV>this.m_AJV).getSchema(ConfiggerSchema);
+              if (null === ConfigInfoChecker) {
+                  throw new Error('C4Configger init, can not find ConfigInfo schema.');
+              }
+            
+              let ConfigInfoIsValid = ConfigInfoChecker(ConfigInfo);
+              if (!ConfigInfoIsValid) {
+                  throw new Error('C4Configger init, load a invalid config info.');
+              }
             }
 
             // 设置加载目录
-            (<C4ConfigInfo>this.m_ConfigInfo).ConfigDir = ConfigInfo.ConfigDir;
+            (<C4ConfiggerOptions>this.m_ConfigInfo).ConfigDir = ConfigInfo.ConfigDir;
             // 检查Macros列表
             if (TypeUtils.isNullOrUndefined(ConfigInfo.Macros)
                 || TypeUtils.isEmptyObj(ConfigInfo.Macros)
                 || ConfigInfo.Macros.length === 0) {
-                (<C4ConfigInfo>this.m_ConfigInfo).Macros = Macros;
+                (<C4ConfiggerOptions>this.m_ConfigInfo).Macros = Macros;
             } else {
                 for (let i = 0; i < ConfigInfo.Macros.length; i++) {
                     let MacrosName = <string>ConfigInfo.Macros[i];
                     let CurMacrosProcess    = (<any>Macros)[MacrosName];
                     if (undefined !== CurMacrosProcess) {
                         // (<C4ConfigInfo>this.m_ConfigInfo).Macros[MacrosName] = CurMacrosProcess
-                        (<C4ConfigInfo>this.m_ConfigInfo).Macros.push(CurMacrosProcess);
+                        (<C4ConfiggerOptions>this.m_ConfigInfo).Macros.push(CurMacrosProcess);
                     }
                 }
             }
@@ -153,7 +156,7 @@ export default class C4Configger extends EventEmitter {
             if (ConfigInfo.ConfigService) {
                 // 存在Config Server的配置，准备远程加载
                 // 说明要从远程加载了
-                (<C4ConfigInfo>this.m_ConfigInfo).ConfigService = ConfigInfo.ConfigService;
+                (<C4ConfiggerOptions>this.m_ConfigInfo).ConfigService = ConfigInfo.ConfigService;
                 if (null === this.m_RemoteLoader) {
                     this.m_RemoteLoader = new C4RemoteLoader();
                     await this.m_RemoteLoader.init(/*{

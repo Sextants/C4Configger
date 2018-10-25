@@ -12,17 +12,18 @@ export interface C4ConfigDir {
 }
 
 export interface C4ConfigService {
-    host : string,
-    user : string,
-    pass : string
+    host : string;
+    user ?: string;
+    pass ?: string;
+    timeout ?: number
 }
 
 export interface Macro {
     Marco   : string,
-    Process : (value : string, configInfo : C4ConfigInfo) => string
+    Process : (value : string, configInfo : C4ConfiggerOptions) => string
 }
 
-export interface C4ConfigInfo {
+export interface C4ConfiggerOptions {
     ConfigDir       : C4ConfigDir;
     ConfigService  ?: C4ConfigService;
     AppName         : string;
@@ -32,6 +33,6 @@ export interface C4ConfigInfo {
     InstanceID      : string;
     Profiles        : string[] | string;
     Label          ?: string;
-    Macros          : any;
+    Macros          : {[key : string] : any};
     Checker        ?: C4AJV
 }

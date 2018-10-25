@@ -1,4 +1,4 @@
-import { C4ConfigInfo } from '../ConfigTypes/C4ConfigInfo';
+import { C4ConfiggerOptions } from '../ConfigTypes/C4ConfiggerOptions';
 
 export default abstract class C4ConfigLoaderInterface {
     /**
@@ -13,5 +13,5 @@ export default abstract class C4ConfigLoaderInterface {
      * @param loadString 加载文件
      * @param configInfo C4ConfigInfo
      */
-    abstract async load(rootDir : string, loadString : string, configInfo : C4ConfigInfo) : Promise<any>;
+    abstract async load(rootDir : string, loadString : string, configInfo : C4ConfiggerOptions) : Promise<any>;
 }

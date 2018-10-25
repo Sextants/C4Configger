@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const C4ConfigInfo_1 = require("./ConfigTypes/C4ConfigInfo");
-exports.C4ConfigFileType = C4ConfigInfo_1.C4ConfigFileType;
+const C4ConfiggerOptions_1 = require("./ConfigTypes/C4ConfiggerOptions");
+exports.C4ConfigFileType = C4ConfiggerOptions_1.C4ConfigFileType;
 const C4ConfigLoaderInterface_1 = require("./LoaderInstance/C4ConfigLoaderInterface");
 exports.C4ConfigLoaderInterface = C4ConfigLoaderInterface_1.default;
 const C4YamlLoader_1 = require("./LoaderInstance/C4YamlLoader");

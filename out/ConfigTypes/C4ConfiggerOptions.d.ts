@@ -28,6 +28,8 @@ export interface C4ConfiggerOptions {
     InstanceID: string;
     Profiles: string[] | string;
     Label?: string;
-    Macros: any[];
+    Macros: {
+        [key: string]: any;
+    };
     Checker?: C4AJV;
 }
