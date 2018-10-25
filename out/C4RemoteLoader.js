@@ -47,7 +47,12 @@ class C4RemoteLoader extends C4BaseLoader_1.default {
             let Self = this;
             let ProfilesIsValid = false;
             try {
-                ProfilesIsValid = configInfo.Checker.validate("Profiles", configInfo.Profiles);
+                if (configInfo.Checker) {
+                    ProfilesIsValid = configInfo.Checker.validate("Profiles", configInfo.Profiles);
+                }
+                else {
+                    ProfilesIsValid = true;
+                }
             }
             catch (error) {
                 throw error;

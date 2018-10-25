@@ -40,7 +40,11 @@ export default class C4RemoteLoader extends C4BaseLoader {
         let Self = this;
         let ProfilesIsValid : boolean | any = false;
         try {
+          if (configInfo.Checker) {
             ProfilesIsValid = (<C4AJV>configInfo.Checker).validate("Profiles", <object>configInfo.Profiles);
+          } else {
+            ProfilesIsValid = true;
+          }
         } catch (error) {
             throw error;
         }
