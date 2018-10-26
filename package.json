@@ -1,6 +1,6 @@
 {
   "name": "c4configger",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "C4Framework Configger",
   "main": "out",
   "scripts": {
@@ -24,7 +24,7 @@
     "@types/node": "^9.4.6",
     "@types/strip-json-comments": "0.0.30",
     "c4ajv": "0.0.1",
-    "c4restfulclient": "0.0.1",
+    "c4restfulclient": "0.0.3",
     "c4utils": "0.0.2",
     "cloud-config-client": "^1.1.0",
     "js-yaml": "^3.10.0",
