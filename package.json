@@ -1,6 +1,6 @@
 {
   "name": "c4configger",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "C4Framework Configger",
   "main": "out",
   "scripts": {

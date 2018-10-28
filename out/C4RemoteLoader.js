@@ -114,7 +114,7 @@ class C4RemoteLoader extends C4BaseLoader_1.default {
             if (c4utils_1.TypeUtils.isNullOrUndefined(ConfigRes.body.name)) {
                 throw new Error('C4RemoteLoader get config failed, ' + JSON.stringify(ConfigRes.body));
             }
-            console.log(ConfigRes.body);
+            // console.log(ConfigRes.body);
             try {
                 // 解析数据
                 let Doc = this._parse(ConfigRes.body, configInfo);

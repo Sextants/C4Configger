@@ -115,7 +115,7 @@ export default class C4RemoteLoader extends C4BaseLoader {
             throw new Error('C4RemoteLoader get config failed, ' + JSON.stringify(ConfigRes.body));
         }
 
-        console.log(ConfigRes.body);
+        // console.log(ConfigRes.body);
         try {
             // 解析数据
             let Doc = this._parse(ConfigRes.body, configInfo);
