@@ -11,7 +11,7 @@ export default class C4LocalLoader extends C4BaseLoader {
         this.m_Loaders  = new Map();
     }
 
-    async init() {
+    init() {
         super.init();
         // this.m_Loaders  = new Map();
     }

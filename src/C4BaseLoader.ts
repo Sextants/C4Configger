@@ -4,7 +4,8 @@ import { TypeUtils, PathUtils } from 'c4utils';
 export default class C4BaseLoader {
     constructor() {}
 
-    async init() {}
+    init() : void
+    async init(): Promise<void>{}
 
     /**
      * 处理宏

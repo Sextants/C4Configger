@@ -17,11 +17,8 @@ class C4LocalLoader extends C4BaseLoader_1.default {
         this.m_Loaders = new Map();
     }
     init() {
-        const _super = name => super[name];
-        return __awaiter(this, void 0, void 0, function* () {
-            _super("init").call(this);
-            // this.m_Loaders  = new Map();
-        });
+        super.init();
+        // this.m_Loaders  = new Map();
     }
     /**
      * 加载配置

@@ -17,7 +17,7 @@ export default class C4RemoteLoader extends C4BaseLoader {
      * @param option ClientOption
      * @param changeServer 是否切换Client配置
      */
-    async init(option ?: ClientOption, changeServer : boolean = false) {
+    init(option ?: ClientOption, changeServer : boolean = false) {
         super.init();
         if (this.m_Client === null) {
             this.m_Client   = new C4RESTFulClient();
@@ -70,41 +70,9 @@ export default class C4RemoteLoader extends C4BaseLoader {
             + configInfo.Profiles + '/'
             + (configInfo.Label || ''),
             curRequestOption
-            // <RequestOption>{
-            //     'auth' : {
-            //         'username' : (<C4ConfigService>configInfo.ConfigService).user,
-            //         'password' : (<C4ConfigService>configInfo.ConfigService).pass
-            //     },
-            //     timeout : 10000
-            // }
         ).catch((err) => {
             throw err;
         });
-
-        // this.m_Client.registerMethod(
-        //     (<C4ConfigService>configInfo.ConfigService).host,
-        //     (<C4ConfigService>configInfo.ConfigService).host + '/'
-        //     + configInfo.AppName + '/'
-        //     + configInfo.Profiles + '/'
-        //     + (configInfo.Label || ''),
-        //     "GET"
-        // );
-
-        // // 请求配置
-        // let ConfigRes = await (<Promise<{data ?: any, response ?: any}>>this.m_Client.methods(
-        //     (<C4ConfigService>configInfo.ConfigService).host,
-        //     <C4RESTFulClientRequestConfig>{
-        //         user : (<C4ConfigService>configInfo.ConfigService).user,
-        //         password : (<C4ConfigService>configInfo.ConfigService).pass,
-        //         requestConfig : {
-        //             timeout : 10000
-        //         },
-        //         responseConfig : {
-        //             timeout : 10000
-        //         }
-        // })).catch((err) => {
-        //     throw err;
-        // });
 
         // 检查是否返回了有效值
         if (TypeUtils.isNullOrUndefined(ConfigRes.body)) {
@@ -148,7 +116,17 @@ export default class C4RemoteLoader extends C4BaseLoader {
             return null;
         }
 
-        let doc : any = {};
+        let doc: {
+          version: string | null;
+          state: string | null;
+          label: string | null;
+          [profile: string]: any
+        } = {
+          version: config.version,
+          state: config.state,
+          label: config.label,
+        };
+        
 
         let MatchReg = new RegExp('/' + configInfo.AppName + '-*\\w*\\.', 'g');
         let MatchReg2= new RegExp('/' + configInfo.AppName + '-*', 'g');

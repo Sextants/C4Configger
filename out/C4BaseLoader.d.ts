@@ -1,7 +1,7 @@
 import { C4ConfiggerOptions } from './ConfigTypes/C4ConfiggerOptions';
 export default class C4BaseLoader {
     constructor();
-    init(): Promise<void>;
+    init(): void;
     /**
      * 处理宏
      * @param value 当前值

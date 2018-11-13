@@ -19,7 +19,7 @@ function Launch() {
             AppName: "app-server",
             Version: "0.0.1",
             host: "localhost",
-            port: 9001,
+            port: 7001,
             InstanceID: '123',
             Profiles: "staging",
             Checker: Checker,

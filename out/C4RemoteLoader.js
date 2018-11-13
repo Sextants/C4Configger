@@ -22,18 +22,15 @@ class C4RemoteLoader extends C4BaseLoader_1.default {
      * @param changeServer 是否切换Client配置
      */
     init(option, changeServer = false) {
-        const _super = name => super[name];
-        return __awaiter(this, void 0, void 0, function* () {
-            _super("init").call(this);
-            if (this.m_Client === null) {
-                this.m_Client = new c4restfulclient_1.C4RESTFulClient();
-                this.m_Client.init(option);
-            }
-            else if (changeServer) {
-                this.m_Client = new c4restfulclient_1.C4RESTFulClient();
-                this.m_Client.init(option);
-            }
-        });
+        super.init();
+        if (this.m_Client === null) {
+            this.m_Client = new c4restfulclient_1.C4RESTFulClient();
+            this.m_Client.init(option);
+        }
+        else if (changeServer) {
+            this.m_Client = new c4restfulclient_1.C4RESTFulClient();
+            this.m_Client.init(option);
+        }
     }
     /**
      * 加载配置
@@ -73,40 +70,9 @@ class C4RemoteLoader extends C4BaseLoader_1.default {
             let ConfigRes = yield this.m_Client.get(configInfo.ConfigService.host + '/'
                 + configInfo.AppName + '/'
                 + configInfo.Profiles + '/'
-                + (configInfo.Label || ''), curRequestOption
-            // <RequestOption>{
-            //     'auth' : {
-            //         'username' : (<C4ConfigService>configInfo.ConfigService).user,
-            //         'password' : (<C4ConfigService>configInfo.ConfigService).pass
-            //     },
-            //     timeout : 10000
-            // }
-            ).catch((err) => {
+                + (configInfo.Label || ''), curRequestOption).catch((err) => {
                 throw err;
             });
-            // this.m_Client.registerMethod(
-            //     (<C4ConfigService>configInfo.ConfigService).host,
-            //     (<C4ConfigService>configInfo.ConfigService).host + '/'
-            //     + configInfo.AppName + '/'
-            //     + configInfo.Profiles + '/'
-            //     + (configInfo.Label || ''),
-            //     "GET"
-            // );
-            // // 请求配置
-            // let ConfigRes = await (<Promise<{data ?: any, response ?: any}>>this.m_Client.methods(
-            //     (<C4ConfigService>configInfo.ConfigService).host,
-            //     <C4RESTFulClientRequestConfig>{
-            //         user : (<C4ConfigService>configInfo.ConfigService).user,
-            //         password : (<C4ConfigService>configInfo.ConfigService).pass,
-            //         requestConfig : {
-            //             timeout : 10000
-            //         },
-            //         responseConfig : {
-            //             timeout : 10000
-            //         }
-            // })).catch((err) => {
-            //     throw err;
-            // });
             // 检查是否返回了有效值
             if (c4utils_1.TypeUtils.isNullOrUndefined(ConfigRes.body)) {
                 throw new Error('C4RemoteLoader get config failed.');
@@ -148,7 +114,11 @@ class C4RemoteLoader extends C4BaseLoader_1.default {
             || c4utils_1.TypeUtils.isEmptyObj(config)) {
             return null;
         }
-        let doc = {};
+        let doc = {
+            version: config.version,
+            state: config.state,
+            label: config.label,
+        };
         let MatchReg = new RegExp('/' + configInfo.AppName + '-*\\w*\\.', 'g');
         let MatchReg2 = new RegExp('/' + configInfo.AppName + '-*', 'g');
         try {

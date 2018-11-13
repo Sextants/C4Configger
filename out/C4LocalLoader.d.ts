@@ -4,7 +4,7 @@ import C4BaseLoader from './C4BaseLoader';
 export default class C4LocalLoader extends C4BaseLoader {
     private m_Loaders;
     constructor();
-    init(): Promise<void>;
+    init(): void;
     /**
      * 加载配置
      * @param rootDir 根目录
